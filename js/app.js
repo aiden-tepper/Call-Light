@@ -15,26 +15,29 @@ deviceID4 = "";
 url4 = "https://api-http.littlebitscloud.cc/v2/devices/" + deviceID4 + "/output";
 
 function post() {
+
   console.log("clicked");
 
   $.ajax({
 
-    contentType: "application/json",
     url: url1,
     type: "post",
+    dataType: "json",
 
     data: {
-      access_token: accessToken1,
-      power: 100,
-      duration_ms: 5000
+      "power": 100,
+      "duration_ms": 5000
     },
 
     headers: {
-      authorization: "Bearer 4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed",
-      accept: "application/vnd.littlebits.v2+json"
+      "Accept": "application/vnd.littlebits.v2+json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer 4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed"
     },
 
-    dataType: "json",
+    beforeSend: function(jqXHR) {
+      console.log(jqXHR);
+    },
 
     success: function(result, status, xhr){
       console.log("result: " + result + "\nStatus: " + status + "\nXHR:" + JSON.stringify(xhr));

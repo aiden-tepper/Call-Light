@@ -7,34 +7,27 @@ var tenant1 = {
 
 var tenant2 = {
   name: "Nina",
-  accessToken : "",
-  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "" + "/output"
+  accessToken : "4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed",
+  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "00e04c1edc71" + "/output"
 };
 
 var tenant3 = {
   name: "Lauren",
-  accessToken : "",
-  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "" + "/output"
+  accessToken : "4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed",
+  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "00e04c1ef6bb" + "/output"
 };
 
 var tenant4 = {
   name: "Julie",
-  accessToken : "",
-  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "" + "/output"
+  accessToken : "4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed",
+  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "00e04c1f081c" + "/output"
 };
 
-
-
-var temp = {
-  "percent": 100,
-  "duration_ms": 5000
-};
 
 var postdata = JSON.stringify({
   "percent": 100,
-  "duration_ms": 5000
+  "duration_ms": 32000
 });
-
 
 
 function post(tenant) {
@@ -54,18 +47,6 @@ function post(tenant) {
       "Content-Type": "application/json",
       "Authorization": "Bearer " + tenant.accessToken
     },
-
-    // beforeSend: function(jqXHR) {
-    //   console.log("JQXHR: \n\n" + JSON.stringify(jqXHR));
-    // },
-
-    // success: function(result, status, xhr){
-    //   console.log("Result: \n" + JSON.stringify(result) + "\n\nStatus: " + status + "\n\nXHR: \n" + JSON.stringify(xhr));
-    // },
-
-    // error: function(xhr, status, error){
-    //   console.log("XHR: \n" + JSON.stringify(xhr) + "\n\nStatus: " + status + "\n\nError: " + error);
-    // }
 
     success: function() {
       $("#modaltitle").text("Success!");

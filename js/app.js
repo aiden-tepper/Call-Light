@@ -49,14 +49,14 @@ function post(tenant) {
     },
 
     success: function() {
-      $("#modaltitle").text("Success!");
+      $("#modaltitle").text("Confirmed");
       $("#modalbody").text(tenant.name + " has been notified of your arrival. She will meet with you shortly.");
       $("#modal").modal();
     },
 
     error: function(xhr, status, error) {
-      $("#modaltitle").text("Uh oh!");
-      $("#modalbody").text("Something went wrong! Try again, and if this message persists, please take a seat and wait patiently.");
+      $("#modaltitle").text("Error");
+      $("#modalbody").text("Please try again. If this message persists, take a seat and wait patiently.");
       $("#modal").modal();
     }
 

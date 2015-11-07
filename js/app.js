@@ -1,4 +1,8 @@
 
+var buttonclick = new Audio("mp3/click.mp3");
+var success = new Audio("mp3/success.mp3");
+
+
 var tenant1 = {
   name: "Melanie",
   accessToken : "4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed",
@@ -52,6 +56,7 @@ function post(tenant) {
       $("#modaltitle").text("Confirmed");
       $("#modalbody").text(tenant.name + " has been notified of your arrival. She will meet with you shortly.");
       $("#modal").modal();
+      success.play();
     },
 
     error: function(xhr, status, error) {

@@ -1,81 +1,82 @@
-accessToken1 = "4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed";
-deviceID1 = "243c200bfb71";
-url1 = "https://api-http.littlebitscloud.cc/v2/devices/" + deviceID1 + "/output";
 
-accessToken2 = "";
-deviceID2 = "";
-url2 = "https://api-http.littlebitscloud.cc/v2/devices/" + deviceID2 + "/output";
+var tenant1 = {
+  name: "Melanie",
+  accessToken : "4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed",
+  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "243c200bfb71" + "/output"
+};
 
-accessToken3 = "";
-deviceID3 = "";
-url3 = "https://api-http.littlebitscloud.cc/v2/devices/" + deviceID3 + "/output";
+var tenant2 = {
+  name: "Nina",
+  accessToken : "",
+  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "" + "/output"
+};
 
-accessToken4 = "";
-deviceID4 = "";
-url4 = "https://api-http.littlebitscloud.cc/v2/devices/" + deviceID4 + "/output";
+var tenant3 = {
+  name: "Lauren",
+  accessToken : "",
+  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "" + "/output"
+};
 
-
-function test() {
-  $.ajax({
-
-    url: "https://api-http.littlebitscloud.cc/v2/devices/243c200bfb71/output",
-    method: "POST",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    beforeSend: function(jqXHR) {
-      jqXHR.setRequestHeader("Authorization", "Bearer 4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed");
-    },
-    headers: {
-      //authorization: "Bearer 4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed"
-    },
-    data: {
-      "power": 100,
-      "duration_ms": 5000
-    },
-
-    success: function(result, status, xhr){
-      console.log("result: " + result + "\nStatus: " + status + "\nXHR:" + JSON.stringify(xhr));
-    },
-    error: function(xhr){
-      console.log("An error occured: " + xhr.status + " " + xhr.statusText);
-    }
-
-  });
-}
+var tenant4 = {
+  name: "Julie",
+  accessToken : "",
+  url : "https://api-http.littlebitscloud.cc/v2/devices/" + "" + "/output"
+};
 
 
-function post() {
 
-  console.log("clicked");
+var temp = {
+  "percent": 100,
+  "duration_ms": 5000
+};
+
+var postdata = JSON.stringify({
+  "percent": 100,
+  "duration_ms": 5000
+});
+
+
+
+function post(tenant) {
+
+  console.log("Clicked on " + tenant.name);
 
   $.ajax({
 
-    //url: url1,
-    url: "https://api-http.littlebitscloud.cc/v2/devices/243c200bfb71/output",
+    url: tenant.url,
     type: "post",
     dataType: "json",
 
-    data: {
-      "power": 100,
-      "duration_ms": 5000
-    },
+    data: postdata,
 
     headers: {
       "Accept": "application/vnd.littlebits.v2+json",
       "Content-Type": "application/json",
-      //"Authorization": "Bearer 4fdb248ad771e101c196f31e5be93dffaa247d6994ebe490e303c1e55f1970ed"
+      "Authorization": "Bearer " + tenant.accessToken
     },
 
-    beforeSend: function(jqXHR) {
-      console.log(jqXHR);
+    // beforeSend: function(jqXHR) {
+    //   console.log("JQXHR: \n\n" + JSON.stringify(jqXHR));
+    // },
+
+    // success: function(result, status, xhr){
+    //   console.log("Result: \n" + JSON.stringify(result) + "\n\nStatus: " + status + "\n\nXHR: \n" + JSON.stringify(xhr));
+    // },
+
+    // error: function(xhr, status, error){
+    //   console.log("XHR: \n" + JSON.stringify(xhr) + "\n\nStatus: " + status + "\n\nError: " + error);
+    // }
+
+    success: function() {
+      $("#modaltitle").text("Success!");
+      $("#modalbody").text(tenant.name + " has been notified of your arrival. She will meet with you shortly.");
+      $("#modal").modal();
     },
 
-    success: function(result, status, xhr){
-      console.log("result: " + result + "\nStatus: " + status + "\nXHR:" + JSON.stringify(xhr));
-    },
-
-    error: function(xhr, status, error){
-      console.log("XHR: " + JSON.stringify(xhr) + "\nStatus: " + status + "\nError: " + error);
+    error: function(xhr, status, error) {
+      $("#modaltitle").text("Uh oh!");
+      $("#modalbody").text("Something went wrong! Try again, and if this message persists, please take a seat and wait patiently.");
+      $("#modal").modal();
     }
 
   });

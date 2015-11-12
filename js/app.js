@@ -35,36 +35,65 @@ var postdata = JSON.stringify({
 
 
 function post(tenant) {
-
   console.log("Clicked on " + tenant.name);
+  post(tenant);
+  again(tenant);
+  again(tenant);
+  again(tenant);
+  again(tenant);
+  again(tenant);
+}
 
+
+function again(tenant) {
+  var now = Date.now();
+  var target = now += 30000;
+  console.log("waiting 30 seconds")
+  while(true) {
+    if(now == target) {
+      barepost(tenant);
+      break;
+    }
+  }
+};
+
+
+function barepost(tenant) {
   $.ajax({
-
     url: tenant.url,
     type: "post",
     dataType: "json",
-
     data: postdata,
+    headers: {
+      "Accept": "application/vnd.littlebits.v2+json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + tenant.accessToken
+    }
+  });
+}
 
+
+function post(tenant) {
+  $.ajax({
+    url: tenant.url,
+    type: "post",
+    dataType: "json",
+    data: postdata,
     headers: {
       "Accept": "application/vnd.littlebits.v2+json",
       "Content-Type": "application/json",
       "Authorization": "Bearer " + tenant.accessToken
     },
-
     success: function() {
       $("#modaltitle").text("Confirmed");
       $("#modalbody").text(tenant.name + " has been notified of your arrival. She will meet with you shortly.");
       $("#modal").modal();
       success.play();
     },
-
     error: function(xhr, status, error) {
       $("#modaltitle").text("Error");
       $("#modalbody").text("Please try again. If this message persists, take a seat and wait patiently.");
       $("#modal").modal();
     }
-
   });
-
 }
